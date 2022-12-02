@@ -40,6 +40,13 @@ public static class RockPaperScissors
         },
     };
 
+    private static Dictionary<string, string> letterToPlayMapping = new Dictionary<string, string>
+    {
+        { "X", "Lose" },
+        { "Y", "Draw" },
+        { "Z", "Win" }
+    };
+
     private const int LosePoints = 0;
     private const int DrawPoints = 3;
     private const int WinPoints = 6;
@@ -59,6 +66,23 @@ public static class RockPaperScissors
         return combinedScore;
     }
 
+    public static int CalcStratScorePart2(List<string> input)
+    {
+        var combinedScore = 0;
+        foreach (var play in input)
+        {
+            var players = play.Split(' ');
+            var opponentPlayed = RpsValues.First(rp => rp.Values.Contains(players[0]));
+
+            var stratSelection = GetAppropriatePlay(opponentPlayed.Key, letterToPlayMapping[players[1]]);
+            var playerPlayed = RpsValues.First(rp => rp.Key == stratSelection);
+            
+            var result = GameResult(opponentPlayed.Key, playerPlayed.Key);
+            combinedScore += CalcScore(result, playerPlayed);
+        }
+        return combinedScore;
+    }
+
     private static string GameResult(string opponent, string player)
     {
         if (opponent == player)
@@ -71,6 +95,21 @@ public static class RockPaperScissors
             "Paper" when player == "Scissors" => "Win",
             "Paper" => "Lose",
             _ => player == "Rock" ? "Win" : "Lose"
+        };
+    }
+
+    private static string GetAppropriatePlay(string opponent, string strat)
+    {
+        if (strat == "Draw")
+            return opponent;
+
+        return opponent switch
+        {
+            "Rock" when strat == "Win" => "Paper",
+            "Rock" => "Scissors",
+            "Paper" when strat == "Win" => "Scissors",
+            "Paper" => "Rock",
+            _ => strat == "Win" ? "Rock" : "Paper"
         };
     }
 

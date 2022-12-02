@@ -22,10 +22,19 @@ public class RockPaperScissorsTests
     }
 
     [Test]
-    public void RockPaperScissors_CalculatesHighestElf()
+    public void RockPaperScissors_Part1Example()
     {
         const int expectedScore = 15;
         var result = RockPaperScissors.CalcStratScore(_input);
+
+        Assert.AreEqual(expectedScore, result);
+    }
+    
+    [Test]
+    public void RockPaperScissors_Part2Example()
+    {
+        const int expectedScore = 12;
+        var result = RockPaperScissors.CalcStratScorePart2(_input);
 
         Assert.AreEqual(expectedScore, result);
     }
@@ -44,9 +53,9 @@ public class RockPaperScissorsTests
     public void RockPaperScissors_Part2()
     {
         var textFileLoader = new TextFileLoader();
-        var testData = textFileLoader.LoadStringListFromStrings("TestData\\CalorieCounting.txt");
+        var testData = textFileLoader.LoadStringListFromStrings("TestData\\RockPaperScissors.txt");
         
-        var result = RockPaperScissors.CalcStratScore(testData);
+        var result = RockPaperScissors.CalcStratScorePart2(testData);
         Console.WriteLine(result);
     }
 }
