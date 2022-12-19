@@ -9,7 +9,7 @@ namespace dg.adventofcode._2022.tests.Day4;
 public class CampCleanupTests
 {
     [Test]
-    public void Part_Example()
+    public void Part1_Example()
     {
         var input = new List<string>
         {
