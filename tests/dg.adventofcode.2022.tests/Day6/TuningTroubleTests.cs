@@ -30,34 +30,26 @@ public class TuningTroubleTests
         Console.WriteLine(result);
     }
     
-    // [Test]
-    // public void Part2_Example()
-    // {
-    //     const string expectedResult = "MCD";
-    //     var input = new List<string>
-    //     {
-    //         "    [D]",   
-    //         "[N] [C]",  
-    //         "[Z] [M] [P]",
-    //         "1   2   3", 
-    //         "",
-    //         "move 1 from 2 to 1",
-    //         "move 3 from 1 to 3",
-    //         "move 2 from 2 to 1",
-    //         "move 1 from 1 to 2"
-    //     };
-    //     
-    //     var result = SupplyStacks.GetTopCrates(input, true);
-    //     Assert.AreEqual(expectedResult, result);
-    // }
-    //
-    // [Test]
-    // public void Part2()
-    // {
-    //     var textFileLoader = new TextFileLoader();
-    //     var input = textFileLoader.LoadStringListFromStrings("TestData\\SupplyStacks.txt");
-    //     
-    //     var result = SupplyStacks.GetTopCrates(input, true);
-    //     Console.WriteLine(result);
-    // }
+    [Test]
+    [TestCase("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
+    [TestCase("bvwbjplbgvbhsrlpgdmjqwftvncz", 23)]
+    [TestCase("nppdvjthqldpwncqszvftbrmjlhg", 23)]
+    [TestCase("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 29)]
+    [TestCase("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 26)]
+    public void Part2_Example(string input, int expectedResult)
+    {
+        var result = TuningTrouble.GetMessageMarker(input);
+        
+        Assert.AreEqual(expectedResult, result);
+    }
+    
+    [Test]
+    public void Part2()
+    {
+        var textFileLoader = new TextFileLoader();
+        var input = textFileLoader.LoadString("TestData\\TuningTrouble.txt");
+        
+        var result = TuningTrouble.GetMessageMarker(input);
+        Console.WriteLine(result);
+    }
 }
