@@ -36,30 +36,30 @@ public class TreeHouseTests
         Console.WriteLine(result);
     }
     
-    // [Test]
-    // public void Part2_Example()
-    // {
-    //     const int expectedResult = 21;
-    //     var input = new List<string>
-    //     {
-    //         "30373",
-    //         "25512",
-    //         "65332",
-    //         "33549",
-    //         "35390"
-    //     };
-    //     var result = TreeHouse.GetVisibleTrees(input);
-    //     
-    //     Assert.AreEqual(expectedResult, result);
-    // }
-    //
-    // [Test]
-    // public void Part2()
-    // {
-    //     var textFileLoader = new TextFileLoader();
-    //     var input = textFileLoader.LoadStringListFromStrings("TestData\\TreeHouse.txt");
-    //     
-    //     var result = TreeHouse.GetVisibleTrees(input);
-    //     Console.WriteLine(result);
-    // }
+    [Test]
+    public void Part2_Example()
+    {
+        const int expectedResult = 8;
+        var input = new List<string>
+        {
+            "30373",
+            "25512",
+            "65332",
+            "33549",
+            "35390"
+        };
+        var result = TreeHouse.GetBestScenicScore(input);
+        
+        Assert.AreEqual(expectedResult, result);
+    }
+    
+    [Test]
+    public void Part2()
+    {
+        var textFileLoader = new TextFileLoader();
+        var input = textFileLoader.LoadStringListFromStrings("TestData\\TreeHouse.txt");
+        
+        var result = TreeHouse.GetBestScenicScore(input);
+        Console.WriteLine(result);
+    }
 }
