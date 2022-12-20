@@ -17,6 +17,34 @@ public static class NoSpace
         return result;
     }
 
+    public static long GetMinimumDeletableDirSize(List<string> input)
+    {
+        const long hddSize = 70000000;
+        const long requiredUpdateSize = 30000000;
+        
+        var systemStructure = ParseSystemStructure(input);
+        var freeSpace = hddSize - systemStructure.GetDirectorySize();
+        var requiredDeletionSize = requiredUpdateSize - freeSpace;
+
+        var matchingDirectorySizes = new List<long>();
+        GetDirectoryOfRequiredSize(systemStructure, requiredDeletionSize, matchingDirectorySizes);
+        
+        return matchingDirectorySizes.Min();
+    }
+
+    private static void GetDirectoryOfRequiredSize(SystemDirectory systemStructure, long requiredSize, ICollection<long> matchingDirectorySizes)
+    {
+        foreach (var directory in systemStructure.Directories)
+        {
+            var directorySize = directory.GetDirectorySize();
+            if (directorySize > requiredSize)
+            {
+                matchingDirectorySizes.Add(directorySize);
+            }
+            GetDirectoryOfRequiredSize(directory, requiredSize, matchingDirectorySizes);
+        }
+    }
+
     private static long SumDirectoriesWithSizeLimit(SystemDirectory systemStructure, long maxSize, ref long sumSize)
     {
         foreach (var directory in systemStructure.Directories)
@@ -52,7 +80,6 @@ public static class NoSpace
                     case Command.ChangeDirectory:
                     {
                         var directoryCommand = line.Split("$ cd ")[1].Trim();
-                        // Get parentDirectory
                         activeDirectory = directoryCommand == ".."
                             ? activeDirectory.ParentDirectory
                             : SystemDirectory.FindDirectory(activeDirectory, directoryCommand);
